@@ -1,58 +1,25 @@
-// import React from "react";
-// import {
-//   Accordion,
-//   AccordionContent,
-//   AccordionItem,
-//   AccordionTrigger,
-// } from "@/components/ui/accordion";
-
-// export default function FAQ() {
-//   return (
-//     <div className="w-full bg-black p-8">
-//       <h2 className="text-3xl font-bold mb-8 text-white text-center">
-//         Preguntas Frecuentes
-//       </h2>
-
-//       <div className="space-y-6">
-//         <div>
-//           <h3 className="text-xl font-semibold mb-4 text-white border-b border-gray-700 pb-2 hover:text-purple-500">
-//             ¿Cómo comprar?
-//           </h3>
-//           <Accordion type="single" collapsible>
-//             <AccordionItem value="item-1">
-//               <AccordionTrigger>Is it accessible?</AccordionTrigger>
-//               <AccordionContent>
-//                 Yes. It adheres to the WAI-ARIA design pattern.
-//               </AccordionContent>
-//             </AccordionItem>
-//           </Accordion>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "../@/components/ui/accordion";
 
 export default function FAQ() {
   return (
     <>
-    <hr className="border-t-2 border-gray-600 my-6" />
-      <h2 id="preguntas-frecuentes" className="text-3xl font-bold mb-8 text-white text-center">
+    <hr className="my-6 border-t-2 border-gray-600" />
+      <h2 id="preguntas-frecuentes" className="mb-8 text-3xl font-bold text-center text-white">
         Preguntas Frecuentes
       </h2>
       <div className="flex flex-wrap justify-between w-full">
         <div className="w-1/2 p-2">
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
-              <AccordionTrigger className="text-lg font-bold bg-black p-2 rounded-t-md">
+              <AccordionTrigger className="p-2 text-lg font-bold bg-black rounded-t-md">
                 Que es Spagio?
               </AccordionTrigger>
-              <AccordionContent className="p-2 bg-black0 rounded-b-md text-justify">
+              <AccordionContent className="p-2 text-justify bg-black0 rounded-b-md">
                 Somos una empresa líder en innovación que se dedica a garantizar
                 la integridad y autenticidad de los boletos a través de la
                 implementación de tecnología NFT (Token No Fungible). Al adoptar
@@ -74,10 +41,10 @@ export default function FAQ() {
         <div className="w-1/2 p-2">
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-2">
-              <AccordionTrigger className="text-lg font-bold bg-black p-2 rounded-t-md">
+              <AccordionTrigger className="p-2 text-lg font-bold bg-black rounded-t-md">
                 Como compro boletos en Spagio?
               </AccordionTrigger>
-              <AccordionContent className="p-2 bg-black rounded-b-md text-justify">
+              <AccordionContent className="p-2 text-justify bg-black rounded-b-md">
                 Para disfrutar de la experiencia de comprar boletos mediante
                 nuestra plataforma, necesitas contar con una billetera digital
                 compatible con la red Solana, como Phantom. Esta billetera debe
@@ -111,10 +78,10 @@ export default function FAQ() {
         <div className="w-1/2 p-2">
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-2">
-              <AccordionTrigger className="text-lg font-bold bg-black p-2 rounded-t-md">
+              <AccordionTrigger className="p-2 text-lg font-bold bg-black rounded-t-md">
                 Por que comprar en Spagio?
               </AccordionTrigger>
-              <AccordionContent className="p-2 bg-black rounded-b-md text-justify">
+              <AccordionContent className="p-2 text-justify bg-black rounded-b-md">
                 Comprar en Spagio es optar por la innovación y la seguridad en
                 la adquisición de boletos. Trabajamos con la tecnología
                 blockchain, específicamente con NFTs en la red Solana, lo que
@@ -132,10 +99,10 @@ export default function FAQ() {
         <div className="w-1/2 p-2">
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-2">
-              <AccordionTrigger className="text-lg font-bold bg-black p-2 rounded-t-md">
+              <AccordionTrigger className="p-2 text-lg font-bold bg-black rounded-t-md">
                 Quienes somos?
               </AccordionTrigger>
-              <AccordionContent className="p-2 bg-black rounded-b-md text-justify">
+              <AccordionContent className="p-2 text-justify bg-black rounded-b-md">
                 Cuando eliges Spagio, estás abrazando la innovación y la
                 seguridad en la adquisición de boletos. Nuestra asociación con
                 la tecnología blockchain y el uso de NFTs en la red Solana nos

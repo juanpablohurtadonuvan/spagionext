@@ -3,18 +3,18 @@ import React from "react";
 function Contact() {
   return (
     <>
-      <hr className="border-t-2 border-gray-600 my-6" />
-      <h1 id="contacto" className="text-3xl font-bold text-center my-6">
+      <hr className="my-6 border-t-2 border-gray-600" />
+      <h1 id="contacto" className="my-6 text-3xl font-bold text-center">
         Formulario de Contacto 👨‍💼
       </h1>
-      <form className="bg-black rounded-xl mx-auto max-w-xl w-full">
+      <form className="w-full max-w-xl mx-auto bg-black rounded-xl">
         <div className="p-4">
           <input name="_redirect" type="hidden" value="#" />
           <div className="mt-4 space-y-6">
             <div>
               <label
                 className="block mb-3 text-sm font-medium text-white"
-                name="name"
+                
               >
                 Nombre
               </label>
@@ -26,7 +26,7 @@ function Contact() {
             <div className="col-span-full">
               <label
                 className="block mb-3 text-sm font-medium text-white"
-                name="company"
+                
               >
                 Nombre de la Empresa
               </label>
@@ -38,7 +38,7 @@ function Contact() {
             <div className="col-span-full">
               <label
                 className="block mb-3 text-sm font-medium text-white"
-                name="email"
+                
               >
                 Email
               </label>
@@ -53,7 +53,7 @@ function Contact() {
               <div>
                 <label
                   className="block mb-3 text-sm font-medium text-white"
-                  name="message"
+                  
                 >
                   Detalles del Evento
                 </label>
@@ -61,7 +61,7 @@ function Contact() {
                   <textarea
                     className="block w-full px-6 py-3 text-white bg-black border border-gray-200 appearance-none rounded-xl placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
                     placeholder="Descripcion"
-                    rows="4"
+                    
                   ></textarea>
                 </div>
               </div>

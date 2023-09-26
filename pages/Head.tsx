@@ -8,9 +8,9 @@ export default function Head() {
         <Link href="/">
         <img src="/a.png" className="max-h-20" alt="Solana" /></Link>
 
-        <nav className="flex items-center space-x-4 lg:space-x-6 mx-6">
+        <nav className="flex items-center mx-6 space-x-4 lg:space-x-6">
           {/* <a
-            className="text-sm font-medium transition-colors text-gray-300 hover:text-white"
+            className="text-sm font-medium text-gray-300 transition-colors hover:text-white"
             href="/examples/dashboard"
           >
             Nosotros
@@ -34,7 +34,7 @@ export default function Head() {
             Contacto
           </Link>
         </nav>
-        <div className="ml-auto flex items-center space-x-4">
+        <div className="flex items-center ml-auto mr-5 space-x-4">
           <img src="/sol.png" className="w-6 h-6 mr-2" alt="Solana" />
         </div>
       </nav>
