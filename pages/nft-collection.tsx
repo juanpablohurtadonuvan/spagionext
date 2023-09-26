@@ -7,7 +7,7 @@ import { ThirdwebNftMedia } from "@thirdweb-dev/react";
 
 export default function NFTCollection() {
   const { program } = useProgram(
-    contractAddresses[1].address,
+    contractAddresses[0].address,
     "nft-collection"
   );
   const allQuery = useNFTs(program);
