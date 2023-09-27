@@ -10,7 +10,7 @@ const contractAddresses = [
     name: "Silvestre Dangond",
     description: "Silvestre Dangond",
     address: "25riR2BbYW2WJb5M4KoGx7JM7dyLNL5jAzk9F9ojCLgV",
-    link: `/nft-drop-2`,
+    link: `/mint`,
     icon: `/icons/drop.webp`,
   },
   {
