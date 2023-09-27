@@ -7,8 +7,8 @@ function Main() {
         Spagio <br />
       </h1>
 
-      <p className="text-xl rounded-2xl text-center font-light text-white border-dashed border border-neutral-500 my-10 py-2 w-full">
-        Consigue tus boletos para tus eventos con nosotros!
+      <p className="w-full py-2 my-10 text-xl font-light text-center text-white border border-dashed rounded-2xl border-neutral-500">
+        Tus boletos estan seguros con nosotros!
       </p>
     </div>
   );

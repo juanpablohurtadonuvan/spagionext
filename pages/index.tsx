@@ -41,18 +41,28 @@ const Home: NextPage = () => {
                 onClick={() => router.push(`${c.link}`)}
               >
                 <img
-                  src="/image.png"
+                  src={
+                    c.name === "Bad Bunny World Tour"
+                      ? "/image.png"
+                      : c.name === "Silvestre Dangond"
+                      ? "/silvestre.jpg"
+                      : c.name === "Camilo Sesto Filarmonico"
+                      ? "/camilo.png"
+                      : "/default_image.png"
+                  }
                   className="block w-24 h-24 mx-auto rounded-full"
-                />{" "}
-                {/* Ajusta w-24 y h-24 según el tamaño deseado */}
-                <h3 className="mt-4 text-xl font-semibold text-center">{c.name}</h3>
+                />
+
+                <h3 className="mt-4 text-xl font-semibold text-center">
+                  {c.name}
+                </h3>
                 <p className="text-center text-gray-400">
                   Comprar boleto por 1 solana.
                 </p>
               </div>
             ))}
           </div>
-              <Contact/>
+          <Contact />
           <FAQ />
         </div>
       </div>
