@@ -240,36 +240,36 @@ export const routeBuilder = async (
 ) => {
   let tx2 = transactionBuilder();
 
-  if (guardToUse.guards.allowList.__option === "Some") {
-    // const allowlist = allowLists.get(guardToUse.label);
-    // if (!allowlist) {
-    //   console.error("allowlist not found!");
-    //   return transactionBuilder();
-    // }
-    const allowListProof = await safeFetchAllowListProofFromSeeds(umi, {
-      candyGuard: candyMachine.mintAuthority,
-      candyMachine: candyMachine.publicKey,
-      merkleRoot: getMerkleRoot(allowlist),
-      user: publicKey(umi.identity),
-    });
-    if (allowListProof === null) {
-      tx2 = tx2.add(
-        route(umi, {
-          guard: "allowList",
-          candyMachine: candyMachine.publicKey,
-          candyGuard: candyMachine.mintAuthority,
-          group:
-            guardToUse.label === "default" ? none() : some(guardToUse.label),
-          routeArgs: {
-            path: "proof",
-            merkleRoot: getMerkleRoot(allowlist),
-            merkleProof: getMerkleProof(allowlist, publicKey(umi.identity)),
-          },
-        })
-      );
-    }
-    return tx2;
-  }
+  // if (guardToUse.guards.allowList.__option === "Some") {
+  //   // const allowlist = allowLists.get(guardToUse.label);
+  //   // if (!allowlist) {
+  //   //   console.error("allowlist not found!");
+  //   //   return transactionBuilder();
+  //   // }
+  //   const allowListProof = await safeFetchAllowListProofFromSeeds(umi, {
+  //     candyGuard: candyMachine.mintAuthority,
+  //     candyMachine: candyMachine.publicKey,
+  //     merkleRoot: getMerkleRoot(allowlist),
+  //     user: publicKey(umi.identity),
+  //   });
+  //   if (allowListProof === null) {
+  //     tx2 = tx2.add(
+  //       route(umi, {
+  //         guard: "allowList",
+  //         candyMachine: candyMachine.publicKey,
+  //         candyGuard: candyMachine.mintAuthority,
+  //         group:
+  //           guardToUse.label === "default" ? none() : some(guardToUse.label),
+  //         routeArgs: {
+  //           path: "proof",
+  //           merkleRoot: getMerkleRoot(allowlist),
+  //           merkleProof: getMerkleProof(allowlist, publicKey(umi.identity)),
+  //         },
+  //       })
+  //     );
+  //   }
+  //   return tx2;
+  // }
 };
 
 // combine transactions. return TransactionBuilder[]

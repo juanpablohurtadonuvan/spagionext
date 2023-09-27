@@ -90,7 +90,6 @@ const fetchNft = async (
 
   return { digitalAsset, jsonMetadata };
 };
-
 const mintClick = async (
   umi: Umi,
   guard: GuardReturn,
@@ -131,10 +130,13 @@ const mintClick = async (
     newGuardList[guardIndex].minting = true;
     setGuardList(newGuardList);
 
-    let routeBuild = await routeBuilder(umi, guardToUse, candyMachine);
-    if (!routeBuild) {
+    let routeBuild: any = await routeBuilder(umi, guardToUse, candyMachine);
+
+    // Corrección aplicada aquí:
+    if (routeBuild === undefined) {
       routeBuild = transactionBuilder();
     }
+
     const nftMint = generateSigner(umi);
 
     const mintArgs = mintArgsBuilder(candyMachine, guardToUse, ownedTokens);
@@ -288,6 +290,7 @@ const mintClick = async (
     updateLoadingText(undefined, guardList, guardToUse.label, setGuardList);
   }
 };
+
 // new component called timer that calculates the remaining Time based on the bigint solana time and the bigint toTime difference.
 const Timer = ({
   solanaTime,

@@ -258,7 +258,6 @@ export default function Mint() {
               </>
             ) : (
               <ButtonList
-                className="items-center justify-center px-4 py-2 mt-10 font-semibold text-white transition bg-purple-600 rounded-lg hover:bg-purple-700"
                 guardList={guards}
                 candyMachine={candyMachine}
                 candyGuard={candyGuard}
