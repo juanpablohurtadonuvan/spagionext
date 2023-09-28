@@ -5,6 +5,7 @@ import Head from "./Head";
 import Main from "../components/Main";
 import FAQ from "../components/FAQ";
 import Contact from "../components/Contact";
+import Footer from "../components/Footer";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -65,6 +66,9 @@ const Home: NextPage = () => {
           <Contact />
           <FAQ />
         </div>
+      </div>
+      <div className="w-full">
+        <Footer />
       </div>
     </>
   );
