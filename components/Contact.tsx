@@ -10,7 +10,7 @@ function Contact() {
   };
 
   // Función para manejar el envío del formulario
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
 
     if (isChecked) {
@@ -221,7 +221,7 @@ function Contact() {
                     Al comprar un boleto, aceptas los términos de nuestra
                     política de privacidad. Estos términos y condiciones
                     reflejan la naturaleza digital y única de los boletos en
-                    formato NFT de Spagio. 
+                    formato NFT de Spagio.
                   </p>
                 </li>
               </ol>
