@@ -1,33 +1,68 @@
 import React, { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 function Contact() {
-  const [isChecked, setIsChecked] = useState(false); // Estado inicial del checkbox
-  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar si el modal está abierto
+  const [isChecked, setIsChecked] = useState(false);
+  const [isSent, setIsSent] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Nuevo estado para el envío
 
-  // Función para manejar el cambio en el checkbox
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked); // Invertir el estado al hacer clic
+  const initialValues = {
+    nombre: "",
+    email: "",
+    empresa: "",
+    detalle: "",
   };
 
-  // Función para manejar el envío del formulario
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
+  const validationSchema = Yup.object({
+    nombre: Yup.string().required("El nombre es requerido"),
+    email: Yup.string()
+      .email("El email no es válido")
+      .required("El email es requerido"),
+    empresa: Yup.string().required("La empresa es requerida"),
+    detalle: Yup.string().required("Los detalles del evento son requeridos"),
+  });
 
-    if (isChecked) {
-      // Verificar si el checkbox está marcado
-      // Realizar el envío del formulario o cualquier acción necesaria aquí
-      console.log("Formulario enviado");
-    } else {
-      console.log("Asegúrate de marcar el checkbox antes de enviar.");
+  const handleSubmit = async (values: any, { resetForm }: any) => {
+    setIsSubmitting(true); // Establecer isSubmitting en true al comenzar el envío
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/solicitudes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (response.status === 201) {
+        setIsSent(true);
+        resetForm();
+        setIsChecked(false); // Restablecer los valores iniciales después del envío exitoso
+      } else {
+        console.log(
+          "Error al enviar el formulario. Estado de respuesta:",
+          response.status
+        );
+        // Agregar más detalles del error si están disponibles
+        const responseData = await response.json();
+        console.error("Detalles del error:", responseData);
+      }
+    } catch (error) {
+      console.error("Error al enviar el formulario:", error);
+    } finally {
+      setIsSubmitting(false); // Establecer isSubmitting en false al completar el envío
     }
   };
 
-  // Función para abrir el modal
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+
   const openModal = () => {
     setIsModalOpen(true);
   };
 
-  // Función para cerrar el modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -38,94 +73,121 @@ function Contact() {
       <h1 id="contacto" className="my-6 text-3xl font-bold text-center">
         Formulario de Contacto 👨‍💼
       </h1>
-      <form
-        className="w-full max-w-xl mx-auto bg-black rounded-xl"
-        onSubmit={handleSubmit} // Manejar la acción de envío del formulario
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
       >
-        <div className="p-4">
-          <div className="mt-4 space-y-6">
-            {/* Campos de entrada */}
-            <div>
-              <label className="block mb-3 text-sm font-medium text-white">
-                Nombre
-              </label>
-              <input
-                className="block w-full px-6 py-3 text-white bg-black border border-gray-200 appearance-none rounded-xl placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
-                placeholder="Nombre"
-              />
-            </div>
-            <div className="col-span-full">
-              <label className="block mb-3 text-sm font-medium text-white">
-                Nombre de la Empresa
-              </label>
-              <input
-                className="block w-full px-6 py-3 text-white bg-black border border-gray-200 appearance-none rounded-xl placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
-                placeholder="Nombre de la Empresa"
-              />
-            </div>
-            <div className="col-span-full">
-              <label className="block mb-3 text-sm font-medium text-white">
-                Email
-              </label>
-              <input
-                className="block w-full px-6 py-3 text-white bg-black border border-gray-200 appearance-none rounded-xl placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
-                placeholder="email@spagio.com"
-                autoComplete="off"
-                type="email"
-              />
-            </div>
-            <div>
+        <Form className="w-full max-w-xl mx-auto bg-black rounded-xl">
+          <div className="p-4">
+            <div className="mt-4 space-y-6">
               <div>
                 <label className="block mb-3 text-sm font-medium text-white">
-                  Detalles del Evento
+                  Nombre
                 </label>
-                <div className="mt-1">
-                  <textarea
+                <Field
+                  name="nombre"
+                  className="block w-full px-6 py-3 text-white bg-black border border-gray-200 appearance-none rounded-xl placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
+                  placeholder="Nombre"
+                />
+                <ErrorMessage
+                  name="nombre"
+                  component="div"
+                  className="text-sm text-red-500"
+                />
+              </div>
+              <div className="col-span-full">
+                <label className="block mb-3 text-sm font-medium text-white">
+                  Nombre de la Empresa
+                </label>
+                <Field
+                  name="empresa"
+                  className="block w-full px-6 py-3 text-white bg-black border border-gray-200 appearance-none rounded-xl placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
+                  placeholder="Nombre de la Empresa"
+                />
+                <ErrorMessage
+                  name="empresa"
+                  component="div"
+                  className="text-sm text-red-500"
+                />
+              </div>
+              <div className="col-span-full">
+                <label className="block mb-3 text-sm font-medium text-white">
+                  Email
+                </label>
+                <Field
+                  name="email"
+                  className="block w-full px-6 py-3 text-white bg-black border border-gray-200 appearance-none rounded-xl placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
+                  placeholder="email@spagio.com"
+                  autoComplete="off"
+                  type="email"
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="text-sm text-red-500"
+                />
+              </div>
+              <div>
+                <div>
+                  <label className="block mb-3 text-sm font-medium text-white">
+                    Detalles del Evento
+                  </label>
+                  <Field
+                    name="detalle"
+                    as="textarea"
                     className="block w-full px-6 py-3 text-white bg-black border border-gray-200 appearance-none rounded-xl placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
                     placeholder="Descripcion"
-                  ></textarea>
+                  />
+                  <ErrorMessage
+                    name="detalle"
+                    component="div"
+                    className="text-sm text-red-500"
+                  />
                 </div>
               </div>
             </div>
-          </div>
-          {/* Enlace para abrir el modal de Términos y Condiciones */}
-          <div className="mt-5 mb-3">
-            <label className="text-sm text-white cursor-pointer hover:underline">
-              <input
-                type="checkbox"
-                id="termsCheckbox"
-                className="mr-2"
-                checked={isChecked} // Estado del checkbox
-                onChange={handleCheckboxChange} // Manejar el cambio en el checkbox
-              />
-              Acepto los términos y condiciones
-              <span
-                className="ml-1 text-sm text-blue-500 hover:underline"
-                onClick={openModal}
+            <div className="mt-5 mb-3">
+              <label className="text-sm text-white cursor-pointer hover:underline">
+                <Field
+                  type="checkbox"
+                  name="isChecked"
+                  className="mr-2"
+                  checked={isChecked}
+                  onChange={handleCheckboxChange}
+                />
+                Acepto los términos y condiciones
+                <span
+                  className="ml-1 text-sm text-blue-500 hover:underline"
+                  onClick={openModal}
+                >
+                  (Ver términos)
+                </span>
+              </label>
+            </div>
+            <div className="col-span-full">
+              <button
+                className={`items-center justify-center w-full px-6 py-2.5 text-center text-white duration-200 border-2 border-black rounded-full inline-flex hover:bg-transparent hover:border-black hover:text-white focus:outline-none focus-visible:outline-black text-sm focus-visible:ring-black ${
+                  !isChecked || isSubmitting
+                    ? "opacity-50 cursor-not-allowed"
+                    : ""
+                }`}
+                style={{
+                  background: "linear-gradient(90deg, purple, blue)",
+                }}
+                type="submit"
+                disabled={!isChecked || isSubmitting}
               >
-                (Ver términos)
-              </span>
-            </label>
+                {isSubmitting
+                  ? "Enviando..."
+                  : isSent
+                  ? "Enviado ✅"
+                  : "Enviar ✉️"}
+              </button>
+            </div>
           </div>
-          {/* Botón de envío */}
-          <div className="col-span-full">
-            <button
-              className={`items-center justify-center w-full px-6 py-2.5 text-center text-white duration-200 border-2 border-black rounded-full inline-flex hover:bg-transparent hover:border-black hover:text-white focus:outline-none focus-visible:outline-black text-sm focus-visible:ring-black ${
-                !isChecked ? "opacity-50 cursor-not-allowed" : "" // Deshabilitar el botón si el checkbox no está marcado
-              }`}
-              style={{
-                background: "linear-gradient(90deg, purple, blue)",
-              }}
-              type="submit"
-              disabled={!isChecked} // Deshabilitar el botón si el checkbox no está marcado
-            >
-              Enviar ✉️
-            </button>
-          </div>
-        </div>
-      </form>
-
-      {/* Modal de Términos y Condiciones */}
+        </Form>
+      </Formik>
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="fixed inset-0 bg-black opacity-70"></div>
@@ -146,7 +208,6 @@ function Contact() {
                     nuestros eventos.
                   </p>
                 </li>
-
                 <li>
                   <p>
                     <b>Compra de Boletos en Formato NFT: </b>Los boletos en
@@ -226,7 +287,6 @@ function Contact() {
                 </li>
               </ol>
             </div>
-
             <button
               className="block px-4 py-2 mx-auto mt-4 text-white bg-black border border-white rounded-full hover:bg-white hover:text-black hover:border-black"
               onClick={closeModal}
